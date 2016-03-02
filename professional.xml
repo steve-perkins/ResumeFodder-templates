@@ -5480,6 +5480,7 @@
 					</w:tc>
 				</w:tr>
 				{{ end }}
+				{{ if .Publications }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="1900"/>
@@ -5505,7 +5506,7 @@
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
 									<wx:font wx:val="Arial"/>
 								</w:rPr>
-								<w:t>Publications</w:t>
+								<w:t>{{ if .PublicationsLabel }}{{ html .PublicationsLabel }}{{ else }}Publications{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5514,6 +5515,7 @@
 							<w:tcW w:w="8970" w:type="dxa"/>
 							<w:gridSpan w:val="3"/>
 						</w:tcPr>
+						{{ range .Publications }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00BD649D" wsp:rsidRDefault="00E30373" wsp:rsidP="00BD649D">
 							<w:pPr>
 								<w:listPr>
@@ -5540,40 +5542,9 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Hibernate Search </w:t>
+								<w:t>{{ html .Name }}</w:t>
 							</w:r>
-							<w:proofErr w:type="gramStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>B</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>y</w:t>
-							</w:r>
-							<w:proofErr w:type="gramEnd"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Example</w:t>
-							</w:r>
+							{{ if .ReleaseDate }}
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5581,8 +5552,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>, 2013, </w:t>
+								<w:t>, {{ html .ReleaseDate | YYYY }}</w:t>
 							</w:r>
+							{{ end }}
+							{{ if .Publisher }}
 							<w:proofErr w:type="spellStart"/>
 							<w:r wsp:rsidRPr="00BD649D">
 								<w:rPr>
@@ -5591,18 +5564,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Packt</w:t>
+								<w:t>, {{ html .Publisher }}</w:t>
 							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Publishing</w:t>
-							</w:r>
+							{{ end }}
+							{{ if .ISBN }}
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5610,8 +5575,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>, ISBN 123456789</w:t>
+								<w:t>, ISBN {{ html .ISBN }}</w:t>
 							</w:r>
+							{{ end }}
+							{{ if .Summary }}
 							<w:r wsp:rsidRPr="00BD649D">
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5620,8 +5587,9 @@
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
 								<w:br/>
-								<w:t>A Java developer’s guide to using Hibernate with Apache Lucene and Solr components, to add custom search functionality in their applications.</w:t>
+								<w:t>{{ html .Summary }}</w:t>
 							</w:r>
+							{{ end }}
 							<w:r wsp:rsidRPr="00BD649D">
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5632,177 +5600,11 @@
 								<w:br/>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="12"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>In the Aftermath of </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Bilski</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> v. </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Kappos</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> (with Jeff </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Keuster</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>), 2010, PLI Handbook Series</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-								<w:t>An overview of the current </w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>state of </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>business method and software</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> pat</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>ents, presented at the 2010</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Practicing Law Instit</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>ute's Patent Litigation Seminar.</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00886CA7" wsp:rsidRDefault="00E30373" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
+						{{ end }}
 					</w:tc>
 				</w:tr>
+				{{ end }}
+				{{ if .AdditionalPublications }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="00886CA7" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="1900"/>
@@ -5828,14 +5630,7 @@
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
 									<wx:font wx:val="Arial"/>
 								</w:rPr>
-								<w:t>Additional </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-								<w:t>Publications</w:t>
+								<w:t>{{ if .AdditionalPublicationsLabel }}{{ html .AdditionalPublicationsLabel }}{{ else }}Additional Publications{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5844,6 +5639,7 @@
 							<w:tcW w:w="8970" w:type="dxa"/>
 							<w:gridSpan w:val="3"/>
 						</w:tcPr>
+						{{ range .AdditionalPublications }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00BD649D" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
 							<w:pPr>
 								<w:listPr>
@@ -5870,40 +5666,9 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Hibernate Search </w:t>
+								<w:t>{{ html .Name }}</w:t>
 							</w:r>
-							<w:proofErr w:type="gramStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>B</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>y</w:t>
-							</w:r>
-							<w:proofErr w:type="gramEnd"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Example</w:t>
-							</w:r>
+							{{ if .Summary }}
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5911,28 +5676,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>, 2013, </w:t>
+								<w:t>, {{ html .Summary }}</w:t>
 							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Packt</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Publishing</w:t>
-							</w:r>
+							{{ end }}
+							{{ if .ReleaseDate }}
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5940,38 +5687,20 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>, ISBN 123456789</w:t>
+								<w:t>, {{ html .ReleaseDate | YYYY }}</w:t>
 							</w:r>
-							<w:r wsp:rsidRPr="00BD649D">
+							{{ end }}
+							{{ if .ISBN }}
+							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:br/>
-								<w:t>A Java developer’s guide to using Hibernate with Apache Lucene and </w:t>
+								<w:t>, ISBN {{ html .ISBN }}</w:t>
 							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Solr</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r wsp:rsidRPr="00BD649D">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> components, to add custom search functionality in their applications.</w:t>
-							</w:r>
+							{{ end }}
 							<w:r wsp:rsidRPr="00BD649D">
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5982,186 +5711,11 @@
 								<w:br/>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="12"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>In the Aftermath of </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Bilski</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> v. </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Kappos</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> (with Jeff </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Keuster</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>), 2010</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, PLI Handbook Series</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-								<w:t>An overview of the current </w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>state of </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>business method and software</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> pat</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>ents, presented at the 2010</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00E2656F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Practicing Law Instit</w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>ute's Patent Litigation Seminar.</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00886CA7" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
+						{{ end }}
+
 					</w:tc>
 				</w:tr>
+				{{ end }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="00886CA7" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="1900"/>
