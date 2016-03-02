@@ -4341,6 +4341,7 @@
 							<w:tcW w:w="10455" w:type="dxa"/>
 							<w:gridSpan w:val="4"/>
 						</w:tcPr>
+						{{ if .Basics.Name }}
 						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
 							<w:pPr>
 								<w:pStyle w:val="Name"/>
@@ -4356,18 +4357,13 @@
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
-								</w:rPr>
-								<w:t>S</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
 									<w:smallCaps w:val="off"/>
 								</w:rPr>
-								<w:t>teve Perkins</w:t>
+								<w:t>{{ html .Basics.Name }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
+						{{ if or .Basics.Location.Address .Basics.Location.City .Basics.Location.Region .Basics.Location.PostalCode }}
 						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
 							<w:pPr>
 								<w:pStyle w:val="Heading2"/>
@@ -4383,6 +4379,7 @@
 								</w:rPr>
 							</w:pPr>
 							<st1:address w:st="on">
+								{{ if .Basics.Location.Address }}
 								<st1:Street w:st="on">
 									<w:r wsp:rsidRPr="0017303A">
 										<w:rPr>
@@ -4391,9 +4388,10 @@
 											<w:sz w:val="20"/>
 											<w:sz-cs w:val="20"/>
 										</w:rPr>
-										<w:t>4301 Gravitt Place</w:t>
+										<w:t>{{ html .Basics.Location.Address }}</w:t>
 									</w:r>
 								</st1:Street>
+								{{ if or .Basics.Location.City .Basics.Location.Region .Basics.Location.PostalCode }}
 								<w:r wsp:rsidRPr="0017303A">
 									<w:rPr>
 										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -4403,6 +4401,9 @@
 									</w:rPr>
 									<w:t>, </w:t>
 								</w:r>
+								{{ end }}
+								{{ end }}
+								{{ if .Basics.Location.City }}
 								<st1:City w:st="on">
 									<w:r wsp:rsidRPr="0017303A">
 										<w:rPr>
@@ -4411,9 +4412,10 @@
 											<w:sz w:val="20"/>
 											<w:sz-cs w:val="20"/>
 										</w:rPr>
-										<w:t>Duluth</w:t>
+										<w:t>{{ html .Basics.Location.City }}</w:t>
 									</w:r>
 								</st1:City>
+								{{ if or .Basics.Location.Region .Basics.Location.PostalCode }}
 								<w:r wsp:rsidRPr="0017303A">
 									<w:rPr>
 										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -4423,6 +4425,9 @@
 									</w:rPr>
 									<w:t>, </w:t>
 								</w:r>
+								{{ end }}
+								{{ end }}
+								{{ if .Basics.Location.Region }}
 								<st1:State w:st="on">
 									<w:r wsp:rsidRPr="0017303A">
 										<w:rPr>
@@ -4431,9 +4436,10 @@
 											<w:sz w:val="20"/>
 											<w:sz-cs w:val="20"/>
 										</w:rPr>
-										<w:t>GA</w:t>
+										<w:t>{{ html .Basics.Location.Region }}</w:t>
 									</w:r>
 								</st1:State>
+								{{ if .Basics.Location.PostalCode }}
 								<w:r wsp:rsidRPr="0017303A">
 									<w:rPr>
 										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -4443,6 +4449,9 @@
 									</w:rPr>
 									<w:t> </w:t>
 								</w:r>
+								{{ end }}
+								{{ end }}
+								{{ if .Basics.Location.PostalCode }}
 								<st1:PostalCode w:st="on">
 									<w:r wsp:rsidRPr="0017303A">
 										<w:rPr>
@@ -4451,11 +4460,14 @@
 											<w:sz w:val="20"/>
 											<w:sz-cs w:val="20"/>
 										</w:rPr>
-										<w:t>30096</w:t>
+										<w:t>{{ html .Basics.Location.PostalCode }}</w:t>
 									</w:r>
 								</st1:PostalCode>
+								{{ end }}
 							</st1:address>
 						</w:p>
+						{{ end }}
+						{{ if .Basics.Phone }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00783D83" wsp:rsidP="00E30373">
 							<w:pPr>
 								<w:pStyle w:val="Heading2"/>
@@ -4477,18 +4489,11 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>404-</w:t>
-							</w:r>
-							<w:r wsp:rsidR="00E30373">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>997-3018</w:t>
+								<w:t>{{ html .Basics.Phone }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
+						{{ if .Basics.Email }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00E30373">
 							<w:pPr>
 								<w:pStyle w:val="Heading2"/>
@@ -4510,9 +4515,11 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>steve@steveperkins.net</w:t>
+								<w:t>{{ html .Basics.Email }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
+						{{ if .Basics.Website }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00EE6224">
 							<w:pPr>
 								<w:pStyle w:val="Heading2"/>
@@ -4534,12 +4541,14 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>www.steveperkins.com</w:t>
+								<w:t>{{ html .Basics.Website }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
 						<w:p wsp:rsidR="00AE2C3F" wsp:rsidRPr="00AE2C3F" wsp:rsidRDefault="00AE2C3F" wsp:rsidP="00AE2C3F"/>
 					</w:tc>
 				</w:tr>
+				{{ if or .Basics.Summary .Basics.Highlights }}
 				<w:tr wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -4574,6 +4583,7 @@
 							<w:tcW w:w="8970" w:type="dxa"/>
 							<w:gridSpan w:val="3"/>
 						</w:tcPr>
+						{{ if .Basics.Summary }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:snapToGrid w:val="off"/>
@@ -4591,9 +4601,11 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Summary paragraph</w:t>
+								<w:t>{{ html .Basics.Summary }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
+						{{ range .Basics.Highlights }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:listPr>
@@ -4620,47 +4632,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Highlight 1</w:t>
+								<w:t>{{ html . }}</w:t>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00E30373" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="5"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight</w:t>
-							</w:r>
-							<w:r wsp:rsidR="00886CA7">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> 2</w:t>
-							</w:r>
-						</w:p>
+						{{ end }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRPr="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:tabs>
@@ -4677,6 +4652,8 @@
 						</w:p>
 					</w:tc>
 				</w:tr>
+				{{ end }}
+				{{ if .Skills }}
 				<w:tr wsp:rsidR="00886CA7" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -4978,6 +4955,7 @@
 						</w:p>
 					</w:tc>
 				</w:tr>
+				{{ end }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
