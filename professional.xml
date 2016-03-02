@@ -4849,6 +4849,8 @@
 					</w:tc>
 				</w:tr>
 				{{ end }}
+				{{ $workLabel := .WorkLabel }}
+				{{ range $index, $element := .Work }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -4875,7 +4877,7 @@
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
 									<wx:font wx:val="Arial"/>
 								</w:rPr>
-								<w:t>Experience</w:t>
+								<w:t>{{ if eq $index 0 }}{{ if $workLabel }}{{ html $workLabel }}{{ else }}Experience{{ end }}{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -4905,7 +4907,7 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Senior Software Developer</w:t>
+								<w:t>{{ html .Position }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -4930,7 +4932,7 @@
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>4/11</w:t>
+								<w:t>{{ html .StartDate | MYY }}</w:t>
 							</w:r>
 							<w:r wsp:rsidRPr="0017303A">
 								<w:rPr>
@@ -4946,7 +4948,7 @@
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>present</w:t>
+								<w:t>{{ if .EndDate }}{{ html .EndDate | MYY }}{{ else }}present{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -4995,36 +4997,38 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Purchasing Power</w:t>
+								<w:t>{{ html .Company }}</w:t>
 							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Atlanta</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, GA</w:t>
-							</w:r>
+							<!-- TODO: ResumeFodder needs extension fields for per-job City and Region before this can be added -->
+							<!--<w:r wsp:rsidRPr="0017303A">-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>, </w:t>-->
+							<!--</w:r>-->
+							<!--<w:r>-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>City</w:t>-->
+							<!--</w:r>-->
+							<!--<w:r wsp:rsidRPr="0017303A">-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>, State</w:t>-->
+							<!--</w:r>-->
 						</w:p>
+						{{ if .Summary }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00AE2C3F">
 							<w:pPr>
 								<w:rPr>
@@ -5041,9 +5045,11 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Summary paragraph</w:t>
+								<w:t>{{ html .Summary }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
+						{{ range .Highlights }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="001F06AA">
 							<w:pPr>
 								<w:listPr>
@@ -5069,17 +5075,12 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Highlight 1</w:t>
+								<w:t>{{ html . }}</w:t>
 							</w:r>
 						</w:p>
+						{{ end }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00AE2C3F" wsp:rsidRDefault="00E30373" wsp:rsidP="00AE2C3F">
 							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
 								<w:tabs>
 									<w:tab w:val="left" w:pos="216"/>
 								</w:tabs>
@@ -5090,295 +5091,12 @@
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
 							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 2</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00AE2C3F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-							</w:r>
 						</w:p>
 					</w:tc>
 				</w:tr>
-				<w:tr wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="230"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidRDefault="001F06AA" wsp:rsidP="00854522">
-							<w:pPr>
-								<w:pStyle w:val="Heading1"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="7258" w:type="dxa"/>
-							<w:gridSpan w:val="2"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidRDefault="001F06AA" wsp:rsidP="00854522">
-							<w:pPr>
-								<w:pStyle w:val="Heading2"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Senior Java Developer</w:t>
-							</w:r>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1712" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidRDefault="001F06AA" wsp:rsidP="001F06AA">
-							<w:pPr>
-								<w:pStyle w:val="Dates"/>
-								<w:snapToGrid w:val="off"/>
-								<w:jc w:val="left"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t>9/10</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t> to </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t>4/11</w:t>
-							</w:r>
-						</w:p>
-					</w:tc>
-				</w:tr>
-				<w:tr wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="250"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidRDefault="001F06AA" wsp:rsidP="00854522">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="8970" w:type="dxa"/>
-							<w:gridSpan w:val="3"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="0017303A" wsp:rsidRDefault="001F06AA" wsp:rsidP="00854522">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rStyle w:val="CharChar"/>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Ericsson</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, </w:t>
-							</w:r>
-							<st1:place w:st="on">
-								<st1:City w:st="on">
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>Duluth</w:t>
-									</w:r>
-								</st1:City>
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>, </w:t>
-								</w:r>
-								<st1:State w:st="on">
-									<w:r wsp:rsidRPr="0017303A">
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>GA</w:t>
-									</w:r>
-								</st1:State>
-							</st1:place>
-						</w:p>
-						<w:p wsp:rsidR="00AE2C3F" wsp:rsidRDefault="00AE2C3F" wsp:rsidP="00AE2C3F">
-							<w:pPr>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Summary paragraph</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRDefault="00AE2C3F" wsp:rsidP="00854522">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 1</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="001F06AA" wsp:rsidRPr="00AE2C3F" wsp:rsidRDefault="00AE2C3F" wsp:rsidP="00AE2C3F">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 2</w:t>
-							</w:r>
-							<w:r wsp:rsidR="001F06AA" wsp:rsidRPr="00AE2C3F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-							</w:r>
-						</w:p>
-					</w:tc>
-				</w:tr>
+				{{ end }}
+				{{ $additionalWorkLabel := .AdditionalWorkLabel }}
+				{{ range $index, $element := .AdditionalWork }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -5405,14 +5123,7 @@
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
 									<wx:font wx:val="Arial"/>
 								</w:rPr>
-								<w:t>Additional </w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-								<w:t>Experience</w:t>
+								<w:t>{{ if eq $index 0 }}{{ if $additionalWorkLabel }}{{ html $additionalWorkLabel }}{{ else }}Additional Experience{{ end }}{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5442,7 +5153,7 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Senior Software Developer</w:t>
+								<w:t>{{ html .Position }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5467,7 +5178,7 @@
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>4/11</w:t>
+								<w:t>{{ html .StartDate | MYY }}</w:t>
 							</w:r>
 							<w:r wsp:rsidRPr="0017303A">
 								<w:rPr>
@@ -5483,7 +5194,7 @@
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>present</w:t>
+								<w:t>{{ if .EndDate }}{{ html .EndDate | MYY }}{{ else }}present{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5532,36 +5243,38 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Purchasing Power</w:t>
+								<w:t>{{ html .Company }}</w:t>
 							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Atlanta</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, GA</w:t>
-							</w:r>
+							<!-- TODO: ResumeFodder needs extension fields for per-job City and Region before this can be added -->
+							<!--<w:r wsp:rsidRPr="0017303A">-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>, </w:t>-->
+							<!--</w:r>-->
+							<!--<w:r>-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>Atlanta</w:t>-->
+							<!--</w:r>-->
+							<!--<w:r wsp:rsidRPr="0017303A">-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>, GA</w:t>-->
+							<!--</w:r>-->
 						</w:p>
+						{{ if .Summary }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
 							<w:pPr>
 								<w:rPr>
@@ -5578,45 +5291,12 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Summary paragraph</w:t>
+								<w:t>{{ html .Summary }}</w:t>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 1</w:t>
-							</w:r>
-						</w:p>
+						{{ end }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00AE2C3F" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
 							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
 								<w:tabs>
 									<w:tab w:val="left" w:pos="216"/>
 								</w:tabs>
@@ -5627,295 +5307,11 @@
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
 							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 2</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00AE2C3F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-							</w:r>
 						</w:p>
 					</w:tc>
 				</w:tr>
-				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="230"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:pStyle w:val="Heading1"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="7258" w:type="dxa"/>
-							<w:gridSpan w:val="2"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:pStyle w:val="Heading2"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Senior Java Developer</w:t>
-							</w:r>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1712" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:pStyle w:val="Dates"/>
-								<w:snapToGrid w:val="off"/>
-								<w:jc w:val="left"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t>9/10</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t> to </w:t>
-							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-								</w:rPr>
-								<w:t>4/11</w:t>
-							</w:r>
-						</w:p>
-					</w:tc>
-				</w:tr>
-				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="00AE2C3F" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="250"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="8970" w:type="dxa"/>
-							<w:gridSpan w:val="3"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rStyle w:val="CharChar"/>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Ericsson</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, </w:t>
-							</w:r>
-							<st1:place w:st="on">
-								<st1:City w:st="on">
-									<w:r>
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>Duluth</w:t>
-									</w:r>
-								</st1:City>
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>, </w:t>
-								</w:r>
-								<st1:State w:st="on">
-									<w:r wsp:rsidRPr="0017303A">
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>GA</w:t>
-									</w:r>
-								</st1:State>
-							</st1:place>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Summary paragraph</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 1</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00AE2C3F" wsp:rsidRDefault="00E30373" wsp:rsidP="008D7409">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="6"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Highlight 2</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="00AE2C3F">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:br/>
-							</w:r>
-						</w:p>
-					</w:tc>
-				</w:tr>
+				{{ end }}
+				{{ range $index, $element := .Education }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -5942,7 +5338,7 @@
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
 									<wx:font wx:val="Arial"/>
 								</w:rPr>
-								<w:t>Education</w:t>
+								<w:t>{{ if eq $index 0 }}Education{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -5972,26 +5368,18 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Geo</w:t>
+								<w:t>{{ html .Institution }}</w:t>
 							</w:r>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>rgia State University</w:t>
-							</w:r>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, Atlanta, GA</w:t>
-							</w:r>
+							<!-- TODO: ResumeFodder needs extension fields for per-institution City and Region before this can be added -->
+							<!--<w:r wsp:rsidRPr="0017303A">-->
+								<!--<w:rPr>-->
+									<!--<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>-->
+									<!--<wx:font wx:val="Arial"/>-->
+									<!--<w:sz w:val="20"/>-->
+									<!--<w:sz-cs w:val="20"/>-->
+								<!--</w:rPr>-->
+								<!--<w:t>, Atlanta, GA</w:t>-->
+							<!--</w:r>-->
 						</w:p>
 					</w:tc>
 					<w:tc>
@@ -6009,21 +5397,23 @@
 									<w:sz w:val="20"/>
 								</w:rPr>
 							</w:pPr>
+							{{ if .StartDate }}
 							<w:r wsp:rsidRPr="0017303A">
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>8/07 to </w:t>
+								<w:t>{{ html .StartDate | MYY }} to </w:t>
 							</w:r>
+							{{ end }}
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
 									<w:sz w:val="20"/>
 								</w:rPr>
-								<w:t>6/10</w:t>
+								<w:t>{{ if .EndDate }}{{ html .EndDate | MYY }}{{ else }}present{{ end }}</w:t>
 							</w:r>
 						</w:p>
 					</w:tc>
@@ -6075,7 +5465,7 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>J.D.</w:t>
+								<w:t>{{ html .Area }}</w:t>
 							</w:r>
 							<w:r>
 								<w:rPr>
@@ -6089,239 +5479,7 @@
 						</w:p>
 					</w:tc>
 				</w:tr>
-				<w:tr wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="230"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
-							<w:pPr>
-								<w:pStyle w:val="Heading1"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="7258" w:type="dxa"/>
-							<w:gridSpan w:val="2"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:b/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<st1:country-region w:st="on">
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:b/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>Georgia</w:t>
-								</w:r>
-							</st1:country-region>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:b/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> Southwestern </w:t>
-							</w:r>
-							<st1:PlaceType w:st="on">
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:b/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>State</w:t>
-								</w:r>
-							</st1:PlaceType>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:b/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t> </w:t>
-							</w:r>
-							<st1:PlaceType w:st="on">
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:b/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>University</w:t>
-								</w:r>
-							</st1:PlaceType>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:b/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>, </w:t>
-							</w:r>
-							<st1:place w:st="on">
-								<st1:City w:st="on">
-									<w:r wsp:rsidRPr="0017303A">
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:b/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>Americus</w:t>
-									</w:r>
-								</st1:City>
-								<w:r wsp:rsidRPr="0017303A">
-									<w:rPr>
-										<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-										<wx:font wx:val="Arial"/>
-										<w:b/>
-										<w:sz w:val="20"/>
-										<w:sz-cs w:val="20"/>
-									</w:rPr>
-									<w:t>, </w:t>
-								</w:r>
-								<st1:State w:st="on">
-									<w:r wsp:rsidRPr="0017303A">
-										<w:rPr>
-											<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-											<wx:font wx:val="Arial"/>
-											<w:b/>
-											<w:sz w:val="20"/>
-											<w:sz-cs w:val="20"/>
-										</w:rPr>
-										<w:t>GA</w:t>
-									</w:r>
-								</st1:State>
-							</st1:place>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1712" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>8/93 to 12/99</w:t>
-							</w:r>
-						</w:p>
-					</w:tc>
-				</w:tr>
-				<w:tr wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
-					<w:trPr>
-						<w:trHeight w:val="230"/>
-					</w:trPr>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="1485" w:type="dxa"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
-							<w:pPr>
-								<w:pStyle w:val="Heading1"/>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="0"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial"/>
-									<wx:font wx:val="Arial"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-					<w:tc>
-						<w:tcPr>
-							<w:tcW w:w="8970" w:type="dxa"/>
-							<w:gridSpan w:val="3"/>
-						</w:tcPr>
-						<w:p wsp:rsidR="00FC7039" wsp:rsidRDefault="00FC7039" wsp:rsidP="00E2656F">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r wsp:rsidRPr="0017303A">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>B.S. in Computer Science (minor in Business Management)</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00FC009E" wsp:rsidRPr="00843F21" wsp:rsidRDefault="00FC009E" wsp:rsidP="005A39F6">
-							<w:pPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
-					</w:tc>
-				</w:tr>
+				{{ end }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="1900"/>

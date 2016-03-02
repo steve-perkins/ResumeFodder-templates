@@ -2902,7 +2902,7 @@
 						<aml:annotation aml:id="1" w:type="Word.Bookmark.Start" w:name="h.q7t636trzl8i" w:col-first="0" w:col-last="0"/>
 						<aml:annotation aml:id="1" w:type="Word.Bookmark.End"/>
 						<w:r>
-							<w:t>{{ if .WorkLabel }}{{ .WorkLabel }}{{ else }}Experience{{ end }}</w:t>
+							<w:t>{{ if .WorkLabel }}{{ html .WorkLabel }}{{ else }}Experience{{ end }}</w:t>
 						</w:r>
 					</w:p>
 					<wx:sub-section>
