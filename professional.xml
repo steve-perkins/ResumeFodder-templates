@@ -4654,6 +4654,8 @@
 				</w:tr>
 				{{ end }}
 				{{ if .Skills }}
+				{{ $firstHalfSkills := firstHalfSkills .Skills }}
+				{{ $secondHalfSkills := secondHalfSkills .Skills }}
 				<w:tr wsp:rsidR="00886CA7" wsp:rsidRPr="0017303A" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="230"/>
@@ -4687,6 +4689,7 @@
 						<w:tcPr>
 							<w:tcW w:w="4485" w:type="dxa"/>
 						</w:tcPr>
+						{{ range $firstHalfSkills }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:snapToGrid w:val="off"/>
@@ -4701,10 +4704,11 @@
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
+									<w:b/>
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Programming Languages</w:t>
+								<w:t>{{ html .Name }}</w:t>
 							</w:r>
 							<w:r wsp:rsidR="00D97D20">
 								<w:rPr>
@@ -4716,6 +4720,7 @@
 								<w:t>:</w:t>
 							</w:r>
 						</w:p>
+						{{ range .Keywords }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:listPr>
@@ -4742,38 +4747,10 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Java</w:t>
+								<w:t>{{ html . }}</w:t>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="5"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>C++</w:t>
-							</w:r>
-						</w:p>
+						{{ end }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:snapToGrid w:val="off"/>
@@ -4785,84 +4762,14 @@
 								</w:rPr>
 							</w:pPr>
 						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Frameworks</w:t>
-							</w:r>
-							<w:r wsp:rsidR="00D97D20">
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>:</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="5"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>Spring</w:t>
-							</w:r>
-						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRPr="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
-							<w:pPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
-								<w:snapToGrid w:val="off"/>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
+						{{ end }}
 					</w:tc>
 					<w:tc>
 						<w:tcPr>
 							<w:tcW w:w="4485" w:type="dxa"/>
 							<w:gridSpan w:val="2"/>
 						</w:tcPr>
+						{{ range $secondHalfSkills }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:tabs>
@@ -4880,10 +4787,11 @@
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
+									<w:b/>
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Data</w:t>
+								<w:t>{{ html .Name }}</w:t>
 							</w:r>
 							<w:r wsp:rsidR="00D97D20">
 								<w:rPr>
@@ -4895,6 +4803,7 @@
 								<w:t>:</w:t>
 							</w:r>
 						</w:p>
+						{{ range .Keywords }}
 						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
 								<w:listPr>
@@ -4921,20 +4830,12 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>Oracle</w:t>
+								<w:t>{{ html . }}</w:t>
 							</w:r>
 						</w:p>
-						<w:p wsp:rsidR="00886CA7" wsp:rsidRPr="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
+						{{ end }}
+						<w:p wsp:rsidR="00886CA7" wsp:rsidRDefault="00886CA7" wsp:rsidP="00886CA7">
 							<w:pPr>
-								<w:listPr>
-									<w:ilvl w:val="0"/>
-									<w:ilfo w:val="5"/>
-									<wx:t wx:val="n"/>
-									<wx:font wx:val="Wingdings"/>
-								</w:listPr>
-								<w:tabs>
-									<w:tab w:val="left" w:pos="216"/>
-								</w:tabs>
 								<w:snapToGrid w:val="off"/>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -4943,16 +4844,8 @@
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
 							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>MySQL</w:t>
-							</w:r>
 						</w:p>
+						{{ end }}
 					</w:tc>
 				</w:tr>
 				{{ end }}
