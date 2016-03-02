@@ -5716,6 +5716,7 @@
 					</w:tc>
 				</w:tr>
 				{{ end }}
+				{{ if .Basics.Profiles }}
 				<w:tr wsp:rsidR="00E30373" wsp:rsidRPr="00886CA7" wsp:rsidTr="00E30373">
 					<w:trPr>
 						<w:trHeight w:val="1900"/>
@@ -5750,6 +5751,7 @@
 							<w:tcW w:w="8970" w:type="dxa"/>
 							<w:gridSpan w:val="3"/>
 						</w:tcPr>
+						{{ range .Basics.Profiles }}
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00E30373">
 							<w:pPr>
 								<w:rPr>
@@ -5763,12 +5765,12 @@
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
 									<wx:font wx:val="Arial"/>
+									<w:b/>
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>LinkedIn: </w:t>
+								<w:t>{{ html .Network }}: </w:t>
 							</w:r>
-							<w:proofErr w:type="spellStart"/>
 							<w:r>
 								<w:rPr>
 									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
@@ -5776,9 +5778,8 @@
 									<w:sz w:val="20"/>
 									<w:sz-cs w:val="20"/>
 								</w:rPr>
-								<w:t>perkinssteve</w:t>
+								<w:t>{{ html .Username }}</w:t>
 							</w:r>
-							<w:proofErr w:type="spellEnd"/>
 						</w:p>
 						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00E30373">
 							<w:pPr>
@@ -5790,49 +5791,10 @@
 								</w:rPr>
 							</w:pPr>
 						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRDefault="00E30373" wsp:rsidP="00E30373">
-							<w:pPr>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>GitHub: </w:t>
-							</w:r>
-							<w:proofErr w:type="spellStart"/>
-							<w:r>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-								<w:t>steve-perkins</w:t>
-							</w:r>
-							<w:proofErr w:type="spellEnd"/>
-						</w:p>
-						<w:p wsp:rsidR="00E30373" wsp:rsidRPr="00BD649D" wsp:rsidRDefault="00E30373" wsp:rsidP="00E30373">
-							<w:pPr>
-								<w:rPr>
-									<w:rFonts w:ascii="Arial" w:h-ansi="Arial" w:cs="Arial"/>
-									<wx:font wx:val="Arial"/>
-									<w:i/>
-									<w:sz w:val="20"/>
-									<w:sz-cs w:val="20"/>
-								</w:rPr>
-							</w:pPr>
-						</w:p>
+						{{ end }}
 					</w:tc>
 				</w:tr>
+				{{ end }}
 			</w:tbl>
 			<w:p wsp:rsidR="00FC7039" wsp:rsidRPr="0017303A" wsp:rsidRDefault="00FC7039">
 				<w:pPr>
