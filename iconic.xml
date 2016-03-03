@@ -2640,7 +2640,7 @@
 							{{ end }}
 							{{ if .ISBN }}
 							<w:r wsp:rsidRPr="00235936">
-								<w:t>ISBN {{ html .ISBN }}</w:t>
+								<w:t>, ISBN {{ html .ISBN }}</w:t>
 							</w:r>
 							{{ end }}
 						</w:p>
